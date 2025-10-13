@@ -12,6 +12,13 @@ type versionResp struct {
 }
 
 func Version(w http.ResponseWriter, r *http.Request) {
+	// Emit structured log for the request. `log` is the package logger set by SetLogger.
+	log.Info("handled request", map[string]interface{}{
+		"method": r.Method,
+		"path":   r.URL.Path,
+		"remote": r.RemoteAddr,
+	})
+
 	w.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(w).Encode(versionResp{GitSHA: version.GitSHA})
 }
