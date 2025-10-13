@@ -15,7 +15,7 @@ COPY . .
 
 # Build (static)
 ARG GIT_SHA=dev
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 \
     go build -ldflags "-s -w -X 'github.com/dangrondahl/hello-kosli/internal/version.GitSHA=${GIT_SHA}'" \
     -o /out/hello-kosli ./cmd/hello-kosli
 
