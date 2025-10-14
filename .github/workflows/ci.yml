@@ -24,9 +24,14 @@ jobs:
           kosli create flow $KOSLI_FLOW \
             --description "A simple Go web server that integrates with Kosli" \
             --org $KOSLI_ORG
+      - name: Begin Kosli Trail
+        run: |
+          kosli begin trail "${KOSLI_TRAIL}" \
+            --description="CI run for build: ${GITHUB_RUN_NUMBER}"
 
       - name: Attest pull-request evidence to Kosli
-        run:
-          kosli attest pullrequest github
-            --github-token="${{ secrets.GITHUB_TOKEN }}"
-            --name=pull-request
+        run: |
+          kosli attest pullrequest github \
+            --github-token="${{ secrets.GITHUB_TOKEN }}" \
+            --name=pull-request \
+            --trail=$KOSLI_FLOW
