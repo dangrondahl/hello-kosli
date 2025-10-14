@@ -33,7 +33,7 @@ jobs:
       - name: Begin Kosli Trail
         run: |
           kosli begin trail "${GITHUB_SHA}" \
-            --description="CI run for build: ${GITHUB_RUN_NUMBER} on ref: ${GITHUB_REF_NAME}"
+            --description="CD run for build: ${GITHUB_RUN_NUMBER} on ref: ${GITHUB_REF_NAME}"
 
 
       - name: Log in to the Container registry
@@ -49,15 +49,23 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
+          platforms: linux/amd64,linux/arm64
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
+          build-args: |
+            GIT_SHA==${GITHUB_SHA}
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v3
         with:
