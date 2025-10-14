@@ -78,8 +78,14 @@ jobs:
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
 
+      - name: Make the image fingerprint available for following steps
+        id: fingerprint
+        run: |
+          ARTIFACT_SHA=$( echo ${{ steps.push.outputs.digest }} | sed 's/.*://')
+          echo "FINGERPRINT=$ARTIFACT_SHA" >> $GITHUB_OUTPUT
+
       - name: Attest image evidence to Kosli
         run:
           kosli attest artifact "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
-            --fingerprint="${{ steps.push.outputs.digest }}"
+            --fingerprint="${{ steps.fingerprint.outputs.fingerprint }}"
             --name="${{ env.IMAGE_NAME }}"
