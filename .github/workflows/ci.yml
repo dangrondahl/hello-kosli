@@ -1,9 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -27,3 +24,9 @@ jobs:
           kosli create flow $KOSLI_FLOW \
             --description "A simple Go web server that integrates with Kosli" \
             --org $KOSLI_ORG
+
+      - name: Attest pull-request evidence to Kosli
+        run:
+          kosli attest pullrequest github
+            --github-token="${{ secrets.GITHUB_TOKEN }}"
+            --name=pull-request
