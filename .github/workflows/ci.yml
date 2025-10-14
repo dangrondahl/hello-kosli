@@ -42,6 +42,9 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: 1.22
+      - name: setup kosli
+        uses: kosli-dev/setup-cli-action@v2
+
       - name: Run tests
         run: |
           make test
@@ -77,6 +80,6 @@ jobs:
 
       - name: Attest image evidence to Kosli
         run:
-          kosli attest artifact "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
-            --fingerprint="${{ steps.push.outputs.digest }}"
+          kosli attest artifact "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}" \
+            --fingerprint="${{ steps.push.outputs.digest }}" \
             --name="${{ env.IMAGE_NAME }}"
