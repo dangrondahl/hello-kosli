@@ -83,6 +83,7 @@ jobs:
           kosli attest pullrequest github
             --github-token="${{ secrets.GITHUB_TOKEN }}"
             --name=pull-request
+            --trail="${GITHUB_SHA}"
 
       - name: Create Kosli Environment
         run: |
