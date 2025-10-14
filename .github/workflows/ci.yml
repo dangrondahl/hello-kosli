@@ -15,7 +15,7 @@ env:
 permissions: write-all
 
 jobs:
-  setup:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -84,4 +84,3 @@ jobs:
           kosli attest artifact "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
             --fingerprint="${{ steps.fingerprint.outputs.fingerprint }}"
             --name="${KOSLI_FLOW}"
-            --trail="${GITHUB_SHA}"
