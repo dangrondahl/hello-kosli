@@ -12,6 +12,8 @@ env:
   REGISTRY: ghcr.io/dangrondahl
   IMAGE_NAME: ${{ github.repository }}
 
+permissions: write-all
+
 jobs:
   setup:
     runs-on: ubuntu-latest
