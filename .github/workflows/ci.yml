@@ -89,3 +89,4 @@ jobs:
           kosli attest artifact "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
             --fingerprint="${{ steps.fingerprint.outputs.fingerprint }}"
             --name="${{ env.IMAGE_NAME }}"
+            --trail="${GITHUB_SHA}"
