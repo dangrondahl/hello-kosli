@@ -27,5 +27,5 @@ jobs:
       - name: Begin Kosli Trail
         run: |
           kosli begin trail "${GITHUB_SHA}" \
-            --description="CI run for build: ${GITHUB_RUN_NUMBER} on branch ${GITHUB_REF}"
+            --description="CI run for build: ${GITHUB_RUN_NUMBER} on branch ${GITHUB_REF_NAME}"
 
