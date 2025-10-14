@@ -27,12 +27,5 @@ jobs:
       - name: Begin Kosli Trail
         run: |
           kosli begin trail "${GITHUB_SHA}" \
-            --description="CI run for build: ${GITHUB_RUN_NUMBER}"
+            --description="CI run for build: ${GITHUB_RUN_NUMBER} on branch ${GITHUB_REF}"
 
-      - name: Attest pull-request evidence to Kosli
-        run: |
-          kosli attest pullrequest github \
-            --github-token="${{ secrets.GITHUB_TOKEN }}" \
-            --github-org="${{ github.repository_owner }}" \
-            --name=pull-request \
-            --trail=$KOSLI_FLOW
