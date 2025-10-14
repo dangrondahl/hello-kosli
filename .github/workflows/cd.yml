@@ -9,7 +9,7 @@ env:
   KOSLI_API_TOKEN: ${{ secrets.KOSLI_API_TOKEN }}
   KOSLI_ORG: "dangrondahl"
   KOSLI_FLOW: "hello-kosli"
-  REGISTRY: ghcr.io/dangrondahl
+  REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 permissions: write-all
@@ -65,7 +65,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            GIT_SHA==${GITHUB_SHA}
+            GIT_SHA=${GITHUB_SHA}
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v3
         with:
