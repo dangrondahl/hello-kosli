@@ -11,7 +11,7 @@ env:
   KOSLI_FLOW: "hello-kosli"
 
 jobs:
-  create-flow:
+  setup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -29,3 +29,18 @@ jobs:
           kosli begin trail "${GITHUB_SHA}" \
             --description="CI run for build: ${GITHUB_RUN_NUMBER} on branch ${GITHUB_REF_NAME}"
 
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.22
+      - name: Run tests
+        run: |
+          make test
+      - name: Build
+        run: |
+          make docker-build
