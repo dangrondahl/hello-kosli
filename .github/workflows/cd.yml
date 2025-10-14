@@ -88,5 +88,5 @@ jobs:
       - name: Create Kosli Environment
         run: |
           kosli create environment kind-cluster \
-            --type k8s \
+            --type K8S \
             --description "Smoke test environment" \
