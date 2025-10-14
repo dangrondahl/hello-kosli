@@ -26,7 +26,7 @@ jobs:
             --org $KOSLI_ORG
       - name: Begin Kosli Trail
         run: |
-          kosli begin trail "${KOSLI_TRAIL}" \
+          kosli begin trail \
             --description="CI run for build: ${GITHUB_RUN_NUMBER}"
 
       - name: Attest pull-request evidence to Kosli
