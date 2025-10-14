@@ -74,3 +74,9 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+
+      - name: Attest image evidence to Kosli
+        run:
+          kosli attest artifact "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
+            --fingerprint="${{ steps.push.outputs.digest }}"
+            --name="${{ env.IMAGE_NAME }}"
