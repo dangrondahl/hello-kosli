@@ -78,6 +78,12 @@ jobs:
             --name="${KOSLI_FLOW}"
             --trail="${GITHUB_SHA}"
 
+      - name: Attest pull-request evidence to Kosli
+        run:
+          kosli attest pullrequest github
+            --github-token="${{ secrets.GITHUB_TOKEN }}"
+            --name=pull-request
+
       - name: Create Kosli Environment
         run: |
           kosli create environment kind-cluster \
