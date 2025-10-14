@@ -18,7 +18,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
       - name: setup kosli
         uses: kosli-dev/setup-cli-action@v2
@@ -27,23 +27,18 @@ jobs:
         run: |
           kosli create flow $KOSLI_FLOW \
             --description "A simple Go web server that integrates with Kosli" \
-            --org $KOSLI_ORG
+            --org $KOSLI_ORG \
+            --template-file .kosli/template.yml
+
       - name: Begin Kosli Trail
         run: |
           kosli begin trail "${GITHUB_SHA}" \
             --description="CI run for build: ${GITHUB_RUN_NUMBER} on branch ${GITHUB_REF_NAME}"
 
-  build:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
           go-version: 1.22
-      - name: setup kosli
-        uses: kosli-dev/setup-cli-action@v2
 
       - name: Run tests
         run: |

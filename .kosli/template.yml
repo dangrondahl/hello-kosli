@@ -1,0 +1,6 @@
+version: 1
+trail:
+  attestations: []
+  artifacts:
+  - name: artifact
+    attestations: []
