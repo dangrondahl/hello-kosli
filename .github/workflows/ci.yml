@@ -12,7 +12,7 @@ env:
   REGISTRY: ghcr.io/dangrondahl
   IMAGE_NAME: ${{ github.repository }}
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -31,6 +31,11 @@ jobs:
         run: |
           kosli begin trail "${GITHUB_SHA}" \
             --description="CI run for build: ${GITHUB_RUN_NUMBER} on ref: ${GITHUB_REF_NAME}"
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
 
       - name: Set up Go
         uses: actions/setup-go@v4
