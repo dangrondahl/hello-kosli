@@ -4,4 +4,4 @@ trail:
   - name: pull-request
     type: pull_request
   artifacts:
-  - name: artifact
+  - name: hello-kosli
